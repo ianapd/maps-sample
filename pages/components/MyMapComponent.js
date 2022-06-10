@@ -14,7 +14,7 @@ export const MyMapComponent = ({ children }) => {
 
   return (
     <Fragment>
-      <Box h="500px" w="800px" ref={ref} />
+      <Box h="100vh" w="full" ref={ref} />
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           // set the map prop on the child component
