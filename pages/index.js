@@ -17,7 +17,9 @@ export default function Home() {
   return (
     <Box>
       <Wrapper apiKey='AIzaSyD6AUPIR0eIiGldIIo0b06uqLxlZDyQh-I' render={render}>
-        <MyMapComponent options={{ position: { lat: 14.7361110754, lng: 121.065602303 } }} />
+        <MyMapComponent>
+          <Marker position={{ lat: 14.7361110754, lng: 121.065602303 }} />
+        </MyMapComponent>
       </Wrapper>
     </Box>
   )

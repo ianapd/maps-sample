@@ -1,11 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { useRef, useState, useEffect } from "react";
-import { Fragment } from "react";
+import { Fragment, Children, cloneElement, isValidElement } from "react";
 
-export const MyMapComponent = ({ options }) => {
+export const MyMapComponent = ({ children }) => {
   const ref = useRef()
   const [map, setMap] = useState()
-  const [marker, setMarker] = useState()
 
   useEffect(() => {
     if (ref.current && !map) {
@@ -13,27 +12,15 @@ export const MyMapComponent = ({ options }) => {
     }
   }, [ref, map])
 
-  useEffect(() => {
-    if (!marker) {
-      setMarker(new google.maps.Marker())
-    }
-
-    return () => {
-      if (marker) {
-        marker.setMap(null)
-      }
-    }
-  }, [marker])
-
-  useEffect(() => {
-    if (marker) {
-      marker.setOptions(options)
-    }
-  }, [marker, options])
-
   return (
     <Fragment>
       <Box h="500px" w="800px" ref={ref} />
+      {Children.map(children, (child) => {
+        if (isValidElement(child)) {
+          // set the map prop on the child component
+          return cloneElement(child, { map });
+        }
+      })}
     </Fragment>
   ) 
 }
